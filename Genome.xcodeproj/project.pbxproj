@@ -6,6 +6,11 @@
 	objectVersion = 50;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		7926878B2230809700D65565 /* Genome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 792687872230809700D65565 /* Genome.cpp */; };
+		7926878C2230809700D65565 /* GenomeMatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 792687892230809700D65565 /* GenomeMatcher.cpp */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		7926877522307EEB00D65565 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -20,6 +25,10 @@
 
 /* Begin PBXFileReference section */
 		7926877722307EEB00D65565 /* Genome */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Genome; sourceTree = BUILT_PRODUCTS_DIR; };
+		792687872230809700D65565 /* Genome.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Genome.cpp; sourceTree = "<group>"; };
+		792687882230809700D65565 /* Trie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trie.h; sourceTree = "<group>"; };
+		792687892230809700D65565 /* GenomeMatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GenomeMatcher.cpp; sourceTree = "<group>"; };
+		7926878A2230809700D65565 /* provided.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = provided.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +61,10 @@
 		7926877922307EEB00D65565 /* Genome */ = {
 			isa = PBXGroup;
 			children = (
+				792687872230809700D65565 /* Genome.cpp */,
+				792687892230809700D65565 /* GenomeMatcher.cpp */,
+				7926878A2230809700D65565 /* provided.h */,
+				792687882230809700D65565 /* Trie.h */,
 			);
 			path = Genome;
 			sourceTree = "<group>";
@@ -112,6 +125,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7926878B2230809700D65565 /* Genome.cpp in Sources */,
+				7926878C2230809700D65565 /* GenomeMatcher.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
