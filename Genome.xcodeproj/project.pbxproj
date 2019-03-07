@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7926878B2230809700D65565 /* Genome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 792687872230809700D65565 /* Genome.cpp */; };
 		7926878C2230809700D65565 /* GenomeMatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 792687892230809700D65565 /* GenomeMatcher.cpp */; };
+		7926878E2230852800D65565 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7926878D2230852800D65565 /* main.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,6 +30,7 @@
 		792687882230809700D65565 /* Trie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trie.h; sourceTree = "<group>"; };
 		792687892230809700D65565 /* GenomeMatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GenomeMatcher.cpp; sourceTree = "<group>"; };
 		7926878A2230809700D65565 /* provided.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = provided.h; sourceTree = "<group>"; };
+		7926878D2230852800D65565 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +67,7 @@
 				792687892230809700D65565 /* GenomeMatcher.cpp */,
 				7926878A2230809700D65565 /* provided.h */,
 				792687882230809700D65565 /* Trie.h */,
+				7926878D2230852800D65565 /* main.cpp */,
 			);
 			path = Genome;
 			sourceTree = "<group>";
@@ -127,6 +130,7 @@
 			files = (
 				7926878B2230809700D65565 /* Genome.cpp in Sources */,
 				7926878C2230809700D65565 /* GenomeMatcher.cpp in Sources */,
+				7926878E2230852800D65565 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

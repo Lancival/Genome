@@ -14,11 +14,14 @@ public:
     string name() const;
     bool extract(int position, int length, string& fragment) const;
 private:
+    string m_name;
+    string m_sequence;
 };
 
 GenomeImpl::GenomeImpl(const string& nm, const string& sequence)
 {
-    // This compiles, but may not be correct
+    m_name = nm;
+    m_sequence = sequence;
 }
 
 bool GenomeImpl::load(istream& genomeSource, vector<Genome>& genomes) 
