@@ -16,32 +16,66 @@ public:
 private:
     string m_name;
     string m_sequence;
+    size_t m_size;
 };
 
 GenomeImpl::GenomeImpl(const string& nm, const string& sequence)
 {
     m_name = nm;
     m_sequence = sequence;
+    m_size = m_sequence.size();
 }
 
 bool GenomeImpl::load(istream& genomeSource, vector<Genome>& genomes) 
 {
-    return false;  // This compiles, but may not be correct
+    genomes.clear();
+    char c;
+    genomeSource.get(c);
+    if (c != '>')
+        return false;
+    while (!genomeSource.eof())
+    {
+        string name;
+        string sequence;
+        getline(genomeSource, name);
+        if (name.size() == 0)
+            return false;
+        while (!genomeSource.eof())
+        {
+            genomeSource.get(c);
+            c = toupper(c);
+            if (c == '\n' && genomeSource.peek() != '\n')
+                continue;
+            else if (c == 'A' || c == 'C' || c == 'G' || c == 'T' || c == 'N')
+                sequence += c;
+            else if (c == '>' || c == EOF)
+                break;
+            else
+                return false;
+        }
+        if (sequence.size() == 0)
+            return false;
+        genomes.push_back(Genome(name, sequence));
+    }
+    return true;
 }
 
 int GenomeImpl::length() const
 {
-    return 0;  // This compiles, but may not be correct
+    return (int)(m_size);
 }
 
 string GenomeImpl::name() const
 {
-    return "";  // This compiles, but may not be correct
+    return m_name;
 }
 
 bool GenomeImpl::extract(int position, int length, string& fragment) const
 {
-    return false;  // This compiles, but may not be correct
+    if (m_size - position < length)
+        return false;
+    fragment = m_sequence.substr(position, length);
+    return true;
 }
 
 //******************** Genome functions ************************************
@@ -57,6 +91,19 @@ Genome::Genome(const string& nm, const string& sequence)
 Genome::~Genome()
 {
     delete m_impl;
+}
+
+Genome::Genome(const Genome& other)
+{
+    m_impl = new GenomeImpl(*other.m_impl);
+}
+
+Genome& Genome::operator=(const Genome& rhs)
+{
+    GenomeImpl* newImpl = new GenomeImpl(*rhs.m_impl);
+    delete m_impl;
+    m_impl = newImpl;
+    return *this;
 }
 
 bool Genome::load(istream& genomeSource, vector<Genome>& genomes) 

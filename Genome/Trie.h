@@ -62,7 +62,8 @@ void Trie<ValueType>::TrieNode::find(const std::string& key, bool exactMatchOnly
     if (i == key.size())
         for (int i = 0; i < values.size(); i++)
             answer.push_back(values[i]);
-    for (int l = 0; l < labels.size(); l++) {
+    for (int l = 0; l < labels.size(); l++)
+    {
         if (labels[l] == key[i])
             children[l]->find(key, exactMatchOnly, i+1, answer);
         else if (!exactMatchOnly && i != 0)
