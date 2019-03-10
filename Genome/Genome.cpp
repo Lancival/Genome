@@ -1,7 +1,6 @@
 #include "provided.h"
 #include <string>
 #include <vector>
-#include <iostream>
 #include <istream>
 using namespace std;
 
@@ -72,7 +71,7 @@ string GenomeImpl::name() const
 
 bool GenomeImpl::extract(int position, int length, string& fragment) const
 {
-    if (m_size - position < length)
+    if (position >= 0 && m_size - position < length)
         return false;
     fragment = m_sequence.substr(position, length);
     return true;
