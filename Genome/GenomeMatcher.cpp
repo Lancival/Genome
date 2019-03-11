@@ -92,7 +92,7 @@ bool GenomeMatcherImpl::findRelatedGenomes(const Genome& query, int fragmentMatc
     for (int i = 0; i < query.length()/fragmentMatchLength; i++)
     {
         string fragment;
-        query.extract(i, fragmentMatchLength, fragment);
+        query.extract(i*fragmentMatchLength, fragmentMatchLength, fragment);
         vector<DNAMatch> m;
         findGenomesWithThisDNA(fragment, fragmentMatchLength, exactMatchOnly, m);
         for (int j = 0, g = 0; j < m.size(); j++)
@@ -104,7 +104,7 @@ bool GenomeMatcherImpl::findRelatedGenomes(const Genome& query, int fragmentMatc
     }
     for (int g = 0; g < genomes.size(); g++)
     {
-        double percentMatch = ((double)(matches[g]))/(query.length()/fragmentMatchLength);
+        double percentMatch = ((double)(matches[g]))/(query.length()/fragmentMatchLength)*100;
         if (percentMatch > matchPercentThreshold)
         {
             GenomeMatch gm;
