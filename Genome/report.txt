@@ -59,13 +59,13 @@ empty the array of DNAMatches that will hold the answer
 if fragment length is less than minimum match length, or if minimum match length is less than minimum search length:
     return false
 find all matches of length minimum search length using Trie::find()
-create an array of match lengths, with one slot per Genome
-create an array of match positions, with one slot per Genome
+create an vector of match lengths, with one slot per Genome
+create an vector of match positions, with one slot per Genome
 for each match:
     extract the match character by character to check whether it is an exact match and/or SNiP
     if match is an exact match or a SNiP when SNiPs are acceptable:
         if  match is longer than previous longest match for its genome, or has same length but is earlier in the sequences:
-            store the length and position of the match in it's Genome's spot in the arrays for lengths and positions
+            store the length and position of the match in it's Genome's spot in the vectors for lengths and positions
 for each Genome:
     if a match was found for that Genome:
         add a DNAMatch with the length and position for that Genome to the array of DNAMatches that will hold the answer

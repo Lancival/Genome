@@ -2,6 +2,7 @@
 #include "Trie.h"
 #include <string>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 class GenomeMatcherImpl
@@ -45,10 +46,13 @@ bool GenomeMatcherImpl::findGenomesWithThisDNA(const string& fragment, int minim
     if (fragment.length() < minimumLength || minimumLength < m_minSearchLength)
         return false;
     vector<string> potentialMatches = sequences.find(fragment.substr(0, m_minSearchLength), exactMatchOnly);
-    int length[genomes.size()];
-    int position[genomes.size()];
+    vector<int> length;
+    vector<int> position;
     for (int i = 0; i < genomes.size(); i++)
-        length[i] = position[i] = -1;
+    {
+        length.push_back(-1);
+        position.push_back(-1);
+    }
     for (int i = 0; i < potentialMatches.size(); i++)
     {
         bool exactMatch = true;
@@ -86,9 +90,9 @@ bool GenomeMatcherImpl::findRelatedGenomes(const Genome& query, int fragmentMatc
     if (fragmentMatchLength < m_minSearchLength)
         return false;
     results.clear();
-    int matches[genomes.size()];
+    vector<int> matches;
     for (int i = 0; i < genomes.size(); i++)
-        matches[i] = 0;
+        matches.push_back(0);
     for (int i = 0; i < query.length()/fragmentMatchLength; i++)
     {
         string fragment;
