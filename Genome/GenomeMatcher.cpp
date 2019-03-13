@@ -2,6 +2,7 @@
 #include "Trie.h"
 #include <string>
 #include <vector>
+#include <unordered_map>
 #include <algorithm>
 using namespace std;
 
@@ -46,13 +47,8 @@ bool GenomeMatcherImpl::findGenomesWithThisDNA(const string& fragment, int minim
     if (fragment.length() < minimumLength || minimumLength < m_minSearchLength)
         return false;
     vector<string> potentialMatches = sequences.find(fragment.substr(0, m_minSearchLength), exactMatchOnly);
-    vector<int> length;
-    vector<int> position;
-    for (int i = 0; i < genomes.size(); i++)
-    {
-        length.push_back(-1);
-        position.push_back(-1);
-    }
+    unordered_map<int, int> length;
+    unordered_map<int, int> position;
     for (int i = 0; i < potentialMatches.size(); i++)
     {
         bool exactMatch = true;
@@ -75,7 +71,7 @@ bool GenomeMatcherImpl::findGenomesWithThisDNA(const string& fragment, int minim
         }
     }
     for (int g = 0; g < genomes.size(); g++)
-        if (length[g] != -1)
+        if (length.find(g) != length.end())
             matches.push_back({genomes[g].name(), length[g], position[g]});
     return (matches.size() == 0) ? false : true;
 }
