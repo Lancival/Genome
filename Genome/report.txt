@@ -37,7 +37,8 @@ GenomeMatcher Functions
 - findRelatedGenomes() runs in O(Q*X + Vlog(V)), where Q is the length in DNA bases of the query
   sequence and X is the complexity of my findGenomesWithThisDNA() method, and V is the length of the
   returned vector, which does not conform to the spec, since I needed to sort the returned vector to
-  conform to the ordering of the returned vector imposed by the spec.
+  conform to the ordering of the returned vector imposed by the spec. However, since V <= H = X/F,
+  V*logV << Q*X for all but the most pathological of cases.
 
 ----------------------------------------------------------------------------------------------------
                                         High-Level Pseudocode

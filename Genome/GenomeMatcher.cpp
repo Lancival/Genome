@@ -18,9 +18,10 @@ private:
     int m_minSearchLength;
     vector<Genome> genomes;
     Trie<pair<int,int>> sequences;
+    unordered_map<string,int> names;
 };
 
-GenomeMatcherImpl::GenomeMatcherImpl(int minSearchLength) : genomes(), sequences()
+GenomeMatcherImpl::GenomeMatcherImpl(int minSearchLength) : genomes(), sequences(), names()
 {
     m_minSearchLength = minSearchLength;
 }
@@ -28,6 +29,7 @@ GenomeMatcherImpl::GenomeMatcherImpl(int minSearchLength) : genomes(), sequences
 void GenomeMatcherImpl::addGenome(const Genome& genome)
 {
     genomes.push_back(genome);
+    names.insert({genome.name(), genomes.size() - 1});
     for (int i = 0; i <= genome.length() - m_minSearchLength; i++)
     {
         string fragment;
@@ -85,32 +87,21 @@ bool GenomeMatcherImpl::findRelatedGenomes(const Genome& query, int fragmentMatc
     if (fragmentMatchLength < m_minSearchLength)
         return false;
     results.clear();
-    vector<int> matches;
-    for (int i = 0; i < genomes.size(); i++)
-        matches.push_back(0);
+    unordered_map<int, int> matches;
     for (int i = 0; i < query.length()/fragmentMatchLength; i++)
     {
         string fragment;
         query.extract(i*fragmentMatchLength, fragmentMatchLength, fragment);
         vector<DNAMatch> m;
         findGenomesWithThisDNA(fragment, fragmentMatchLength, exactMatchOnly, m);
-        for (int j = 0, g = 0; j < m.size(); j++)
-        {
-            while (m[j].genomeName != genomes[g].name())
-                g++;
-            matches[g]++;
-        }
+        for (int j = 0; j < m.size(); j++)
+            matches[names.at(m[j].genomeName)]++;
     }
-    for (int g = 0; g < genomes.size(); g++)
+    for (unordered_map<int, int>::iterator it = matches.begin() ; it != matches.end(); it++)
     {
-        double percentMatch = ((double)(matches[g]))/(query.length()/fragmentMatchLength)*100;
+        double percentMatch = ((double)(it->second))/(query.length()/fragmentMatchLength)*100;
         if (percentMatch > matchPercentThreshold)
-        {
-            GenomeMatch gm;
-            gm.genomeName = genomes[g].name();
-            gm.percentMatch = percentMatch;
-            results.push_back(gm);
-        }
+            results.push_back({genomes[it->first].name(), percentMatch});
     }
     sort(results.begin(), results.end(), compareGenomeMatch);
     return (results.size() == 0) ? false : true;
