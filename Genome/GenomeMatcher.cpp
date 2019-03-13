@@ -17,7 +17,7 @@ public:
 private:
     int m_minSearchLength;
     vector<Genome> genomes;
-    Trie<string> sequences;
+    Trie<pair<int,int>> sequences;
 };
 
 GenomeMatcherImpl::GenomeMatcherImpl(int minSearchLength) : genomes(), sequences()
@@ -32,7 +32,7 @@ void GenomeMatcherImpl::addGenome(const Genome& genome)
     {
         string fragment;
         genome.extract(i, m_minSearchLength, fragment);
-        sequences.insert(fragment, to_string(genomes.size()-1) + "," + to_string(i));
+        sequences.insert(fragment, {genomes.size() - 1, i});
     }
 }
 
@@ -46,15 +46,14 @@ bool GenomeMatcherImpl::findGenomesWithThisDNA(const string& fragment, int minim
     matches.clear();
     if (fragment.length() < minimumLength || minimumLength < m_minSearchLength)
         return false;
-    vector<string> potentialMatches = sequences.find(fragment.substr(0, m_minSearchLength), exactMatchOnly);
+    vector<pair<int, int>> potentialMatches = sequences.find(fragment.substr(0, m_minSearchLength), exactMatchOnly);
     unordered_map<int, int> length;
     unordered_map<int, int> position;
     for (int i = 0; i < potentialMatches.size(); i++)
     {
         bool exactMatch = true;
-        size_t delim = potentialMatches[i].find(',');
-        int g = stoi(potentialMatches[i].substr(0, delim));
-        int p = stoi(potentialMatches[i].substr(delim+1, potentialMatches[i].size()));
+        int g = potentialMatches[i].first;
+        int p = potentialMatches[i].second;
         for (int j = 0; j < fragment.length(); j++)
         {
             string base;
