@@ -26,6 +26,7 @@
 
 /* Begin PBXFileReference section */
 		7901CF8C2235BE3300155154 /* Text.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Text.txt; sourceTree = "<group>"; };
+		7901CF952237278300155154 /* report.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = report.txt; sourceTree = "<group>"; };
 		7926877722307EEB00D65565 /* Genome */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Genome; sourceTree = BUILT_PRODUCTS_DIR; };
 		792687872230809700D65565 /* Genome.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Genome.cpp; sourceTree = "<group>"; };
 		792687882230809700D65565 /* Trie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trie.h; sourceTree = "<group>"; };
@@ -69,6 +70,7 @@
 				7926878A2230809700D65565 /* provided.h */,
 				792687882230809700D65565 /* Trie.h */,
 				7926878D2230852800D65565 /* main.cpp */,
+				7901CF952237278300155154 /* report.txt */,
 				7901CF8C2235BE3300155154 /* Text.txt */,
 			);
 			path = Genome;

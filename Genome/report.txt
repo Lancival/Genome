@@ -1,0 +1,74 @@
+----------------------------------------------------------------------------------------------------
+                                         Bugs and Problems
+----------------------------------------------------------------------------------------------------
+My classes have no known bugs or other problems. Any issues that I detected through testing have
+already been fixed, although it is not unlikely that there are still undetected bugs that my test
+cases did not catch.
+
+----------------------------------------------------------------------------------------------------
+                                      Complexity Requirements
+----------------------------------------------------------------------------------------------------
+Trie Functions
+- Trie() runs in O(1), as required by the spec.
+- ~Trie() runs in O(N), where N is the number of nodes in the trie, as required by the spec.
+- reset() runs in O(N), where N is the number of nodes in the trie, as required by the spec.
+- insert() runs in O(LC), where L is the length of the inserted key and C is the average number of
+  children in the trie, as required by the spec.
+- find() runs in O(LC+V) and O(L^2C^2+V) if exactMatch is true or false respectively, where L is the
+  length of the searched-for key, C is the average number of children per node in the trie, and V is
+  the length of the returned vector, as required by the spec.
+
+Genome Functions
+- Genome() runs in O(S), where S is the length of the string, as required by the spec.
+- load() runs in O(N), where N is the the number of characters in the loaded genome file, as
+  required by the spec.
+- length() runs in O(1), as required by the spec.
+- name() runs in O(N), where N is the length of the genome's name, as required by the spec.
+- extract() runs in O(S), where S is the length of the extracted sequence, as required by the spec.
+
+GenomeMatcher Functions
+- GenomeMatcher() runs in O(1), as required by the spec.
+- addGenome() runs in O(L*N), where L is the minSearchLength, and N is the length of the added
+  genome's sequence, as required by the spec.
+- minimumSearchLength() runs in O(1), as required by the spec.
+- findGenomesWithThisDNA() runs in O(H*F), where F is the length of fragment and H is the number of
+  distinct hits across all genomes where the prefix of length minSearchLength of fragment (or a SNiP
+  of the fragment, if exactMatchOnly is false) was found, as required by the spec.
+- findRelatedGenomes() runs in O(Q*X + Vlog(V)), where Q is the length in DNA bases of the query
+  sequence and X is the complexity of my findGenomesWithThisDNA() method, and V is the length of the
+  returned vector, which does not conform to the spec, since I needed to sort the returned vector to
+  conform to the ordering of the returned vector imposed by the spec.
+
+----------------------------------------------------------------------------------------------------
+                                        High-Level Pseudocode
+----------------------------------------------------------------------------------------------------
+Trie::find():
+call TrieNode::find() on the root node
+
+Trie::TrieNode::find():
+if we have reached end of the key:
+    add the values of this TrieNode to the answer
+otherwise, for each child of this node:
+    if the child's label is the next character of the key:
+        call TrieNode::find() on the child, advancing a character in the key
+    if the child's lable is not the next character of the key and looking for SNiPs:
+        call TrieNode::find() on the child, advancing a character in the key and only looking for exact matches
+
+GenomeMatcher::findGenomesWithThisDNA():
+empty the array of DNAMatches that will hold the answer
+if fragment length is less than minimum match length, or if minimum match length is less than minimum search length:
+    return false
+find all matches of length minimum search length using Trie::find()
+create an array of match lengths, with one slot per Genome
+create an array of match positions, with one slot per Genome
+for each match:
+    extract the match character by character to check whether it is an exact match and/or SNiP
+    if match is an exact match or a SNiP when SNiPs are acceptable:
+        if  match is longer than previous longest match for its genome, or has same length but is earlier in the sequences:
+            store the length and position of the match in it's Genome's spot in the arrays for lengths and positions
+for each Genome:
+    if a match was found for that Genome:
+        add a DNAMatch with the length and position for that Genome to the array of DNAMatches that will hold the answer
+if DNAMatches has at least 1 DNAMatch:
+    return true
+otherwise return false
